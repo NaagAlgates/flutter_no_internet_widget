@@ -43,28 +43,30 @@ class InternetWidget extends StatelessWidget {
           create: (context) => InternetCubit(
             urlLookup: lookupUrl,
           ),
-          child: Builder(
-            builder: (_) {
-              return BlocBuilder<InternetCubit, InternetState>(
-                builder: (_, state) {
-                  if (state.cubitStatus == CubitStatus.busy) {
-                    if (loadingWidget != null) {
-                      return loadingWidget!;
+          child: Scaffold(
+            body: Builder(
+              builder: (_) {
+                return BlocBuilder<InternetCubit, InternetState>(
+                  builder: (_, state) {
+                    if (state.cubitStatus == CubitStatus.busy) {
+                      if (loadingWidget != null) {
+                        return loadingWidget!;
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
                     }
-                    return const Center(
-                      child: CircularProgressIndicator(),
+                    return SizedBox(
+                      width: width ?? 100.0.w,
+                      height: height ?? 100.0.h,
+                      child: state.internetStatus == InternetStatus.connected
+                          ? _getOnlineWidget()
+                          : _getOfflineWidget(),
                     );
-                  }
-                  return SizedBox(
-                    width: width ?? 100.0.w,
-                    height: height ?? 100.0.h,
-                    child: state.internetStatus == InternetStatus.connected
-                        ? _getOnlineWidget()
-                        : _getOfflineWidget(),
-                  );
-                },
-              );
-            },
+                  },
+                );
+              },
+            ),
           ),
         );
       },

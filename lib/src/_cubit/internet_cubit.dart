@@ -87,15 +87,18 @@ class InternetCubit extends Cubit<InternetState> {
   void _checkInternetConnection() {
     emit(state.copyWith(cubitStatus: CubitStatus.busy));
     if (kIsWeb) {
-      emit(
-        state.copyWith(
-          cubitStatus: CubitStatus.none,
-          internetStatus: InternetStatus.connected,
-        ),
-      );
-    } else {
-      _subscribeConnectivityChanges();
+      _emitConnected();
     }
+    _subscribeConnectivityChanges();
+  }
+
+  void _emitConnected() {
+    emit(
+      state.copyWith(
+        cubitStatus: CubitStatus.none,
+        internetStatus: InternetStatus.connected,
+      ),
+    );
   }
 
   void _subscribeConnectivityChanges() {
@@ -122,6 +125,10 @@ class InternetCubit extends Cubit<InternetState> {
 
   Future<void> _checkInternet() async {
     try {
+      if (kIsWeb) {
+        _emitConnected();
+        return;
+      }
       final _result = await _lookupAddress();
       final _isOnline = _checkOnlineStatus(_result);
       if (_isOnline) {
