@@ -5,7 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 void main() {
   group('FlutterNoInternetWidget', () {
     test('can be instantiated', () {
-      expect(FlutterNoInternetWidget(), isNotNull);
+      expect(InternetWidget(), isNotNull);
     });
   });
 }

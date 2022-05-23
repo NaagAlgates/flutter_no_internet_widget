@@ -4,9 +4,9 @@ import 'package:flutter_no_internet_widget/src/_cubit/internet_cubit.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///FlutterNoInternetWidget
-class FlutterNoInternetWidget extends StatelessWidget {
+class InternetWidget extends StatelessWidget {
   ///FlutterNoInternetWidget Constructor
-  const FlutterNoInternetWidget({
+  const InternetWidget({
     Key? key,
     this.height,
     this.width,
