@@ -1,6 +1,6 @@
 name: flutter_no_internet_widget
 description: A new Flutter widget to show online or offline widget without any extra code or dependencies.
-version: 0.0.3+7
+version: 0.0.3+8
 homepage: https://github.com/NaagAlgates/flutter_no_internet_widget
 
 environment:

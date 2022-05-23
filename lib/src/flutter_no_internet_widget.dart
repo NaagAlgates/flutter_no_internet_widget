@@ -11,7 +11,7 @@ class InternetWidget extends StatelessWidget {
     this.height,
     this.width,
     this.offline,
-    this.online,
+    required this.online,
     this.lookupUrl,
     this.loadingWidget,
   }) : super(key: key);
