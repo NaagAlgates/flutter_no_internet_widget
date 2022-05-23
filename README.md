@@ -1,13 +1,8 @@
 # flutter_no_internet_widget
 
 [![flutter_no_internet_widget](https://github.com/NaagAlgates/flutter_no_internet_widget/actions/workflows/flutter_no_internet_widget_actions.yml/badge.svg)](https://github.com/NaagAlgates/flutter_no_internet_widget/actions/workflows/flutter_no_internet_widget_actions.yml)
-[![codecov](https://codecov.io/gh/NaagAlgates/flutter_no_internet_widget/branch/master/graph/badge.svg?token=qvQsCoKrIz)](https://codecov.io/gh/NaagAlgates/flutter_no_internet_widget)[![style: very good analysis][very_good_analysis_badge]][very_good_analysis_link]
-[![License: MIT][license_badge]][license_link] [license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
-[license_link]: https://opensource.org/licenses/MIT
-[very_good_analysis_badge]: https://img.shields.io/badge/style-very_good_analysis-B22C89.svg
-[very_good_analysis_link]: https://pub.dev/packages/very_good_analysis
+[![codecov](https://codecov.io/gh/NaagAlgates/flutter_no_internet_widget/branch/master/graph/badge.svg?token=qvQsCoKrIz)](https://codecov.io/gh/NaagAlgates/flutter_no_internet_widget)
 
-![ezgif-3-b21b127bea](https://user-images.githubusercontent.com/14884575/169793453-4662e2b1-2be9-4f79-aaed-e2f489c1564d.gif)
 
 ## Overview
 
@@ -24,13 +19,16 @@ The package's primary purpose is to show a default offline screen and a mandator
 Declare this widget at the top of the widget tree once. Whenever there is no internet, the default offline screen or the provided screen will be displayed. 
 
 ## Example
+```
 InternetWidget(
  online: Text('Online'),
  offline: Text('offline),
  );
+ ```
 
-
- import 'package:flutter/material.dart';
+## Full Example
+```
+import 'package:flutter/material.dart';
 import 'package:flutter_no_internet_widget/flutter_no_internet_widget.dart';
 
 void main() {
@@ -102,26 +100,40 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+```
+ 
+## Video
+ 
+![ezgif-3-b21b127bea](https://user-images.githubusercontent.com/14884575/169793453-4662e2b1-2be9-4f79-aaed-e2f489c1564d.gif)
 
  ## Use this package as a library
 Run this command:
 
 With Dart:
 
- $ dart pub add flutter_no_internet_widget
+ ```
+ dart pub add flutter_no_internet_widget
+ ```
 With Flutter:
 
- $ flutter pub add flutter_no_internet_widget
+ ```
+ flutter pub add flutter_no_internet_widget
+ ```
 This will add a line like this to your package's pubspec.yaml (and run an implicit dart pub get):
 
+```
 dependencies:
   flutter_no_internet_widget: ^0.0.3+7
+  ```
+  
 Alternatively, your editor might support dart pub get or flutter pub get. Check the docs for your editor to learn more.
 
 Import it
 Now in your Dart code, you can use:
 
+```
 import 'package:flutter_no_internet_widget/flutter_no_internet_widget.dart';
+```
 
  ## Maintainers
 
