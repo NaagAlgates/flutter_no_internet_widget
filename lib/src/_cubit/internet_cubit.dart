@@ -64,10 +64,15 @@ class InternetCubit extends Cubit<InternetState> {
   ///Internet State cubit
   InternetCubit({
     Connectivity? connectivity,
-    this.urlLookup = 'https://www.example.com',
+    this.urlLookup = 'example.com',
   }) : super(const InternetState()) {
     this.connectivity = connectivity ?? Connectivity();
+    _init();
+  }
+
+  void _init() {
     _checkInternetConnection();
+    _checkInternet();
   }
 
   ///  Connectivity package
@@ -134,10 +139,13 @@ class InternetCubit extends Cubit<InternetState> {
     }
   }
 
-  Future<List<InternetAddress>> _lookupAddress() async =>
-      InternetAddress.lookup(
-        urlLookup ?? 'https://www.example.com',
-      );
+  Future<List<InternetAddress>> _lookupAddress() async {
+    final _lookupUrl = urlLookup ?? 'example.com';
+    final _internetAddress = await InternetAddress.lookup(
+      _lookupUrl,
+    );
+    return _internetAddress;
+  }
 
   bool _checkOnlineStatus(List<InternetAddress> addressList) =>
       addressList.isNotEmpty && addressList.first.rawAddress.isNotEmpty;

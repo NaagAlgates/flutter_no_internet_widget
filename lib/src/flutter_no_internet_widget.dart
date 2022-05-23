@@ -48,16 +48,17 @@ class FlutterNoInternetWidget extends StatelessWidget {
               return BlocBuilder<InternetCubit, InternetState>(
                 builder: (_, state) {
                   if (state.cubitStatus == CubitStatus.busy) {
-                    return loadingWidget ??
-                        const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                    if (loadingWidget != null) {
+                      return loadingWidget!;
+                    }
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
                   return SizedBox(
                     width: width ?? 100.0.w,
                     height: height ?? 100.0.h,
-                    child: state.cubitStatus == CubitStatus.none &&
-                            state.internetStatus == InternetStatus.connected
+                    child: state.internetStatus == InternetStatus.connected
                         ? _getOnlineWidget()
                         : _getOfflineWidget(),
                   );
@@ -72,14 +73,14 @@ class FlutterNoInternetWidget extends StatelessWidget {
 
   Widget _getOnlineWidget() {
     if (online == null) {
-      return const Text('Online');
+      return const Center(child: Text('Online'));
     }
     return online!;
   }
 
   Widget _getOfflineWidget() {
     if (offline == null) {
-      return const Text('Offline');
+      return const Center(child: Text('Offline'));
     }
     return offline!;
   }
