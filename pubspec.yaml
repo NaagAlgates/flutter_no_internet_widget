@@ -1,0 +1,20 @@
+name: flutter_no_internet_widget
+description: A  new flutter  package to show  online or offline
+version: 0.0.1+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  connectivity_plus: ^2.3.0
+  equatable: ^2.0.3
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  responsive_sizer: ^3.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  very_good_analysis: ^2.4.0
