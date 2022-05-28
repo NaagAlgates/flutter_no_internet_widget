@@ -132,12 +132,7 @@ class InternetCubit extends Cubit<InternetState> {
       final _result = await _lookupAddress();
       final _isOnline = _checkOnlineStatus(_result);
       if (_isOnline) {
-        emit(
-          state.copyWith(
-            cubitStatus: CubitStatus.none,
-            internetStatus: InternetStatus.connected,
-          ),
-        );
+        _emitConnected();
       } else {
         _emitNoInternet();
       }

@@ -5,7 +5,30 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///FlutterNoInternetWidget
 class InternetWidget extends StatelessWidget {
-  ///FlutterNoInternetWidget Constructor
+  /// Use InternetWidget to  show online or ffline widgets
+  ///
+  /// ```dart
+  /// InternetWidget(
+  ///   key: ValueKey('internet-widget'),
+  ///   loadingWidget: Center(
+  ///     child: CircularProgressIndicator(),
+  ///   ),
+  ///   lookupUrl: 'example.com',
+  ///   offline: const Text(
+  ///     'Offline',
+  ///   ),
+  ///   online: const Text(
+  ///     'Online',
+  ///   ),
+  /// ),
+  /// ```
+  /// In case you want to use the default settings,
+  /// just provide the online widget
+  /// ```dart
+  /// InternetWidget(
+  ///  online: Container(),
+  /// ),
+  /// ```
   const InternetWidget({
     Key? key,
     this.height,
@@ -75,14 +98,20 @@ class InternetWidget extends StatelessWidget {
 
   Widget _getOnlineWidget() {
     if (online == null) {
-      return const Center(child: Text('Online'));
+      return const Center(
+        key: ValueKey('default-online-widget'),
+        child: Text('Online'),
+      );
     }
     return online!;
   }
 
   Widget _getOfflineWidget() {
     if (offline == null) {
-      return const Center(child: Text('Offline'));
+      return const Center(
+        key: ValueKey('default-offline-widget'),
+        child: Text('Offline'),
+      );
     }
     return offline!;
   }

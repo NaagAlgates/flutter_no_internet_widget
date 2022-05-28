@@ -1,6 +1,5 @@
-## 0.0.3+9
-* Added Example
-* Added GitHub Actions
-* Added Code Snippets in README
-* Added Web support
+# 0.0.4+10
+
 * Added more test cases
+* Added detailed description for the constructor
+* Updated reademe
