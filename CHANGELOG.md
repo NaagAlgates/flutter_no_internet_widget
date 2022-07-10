@@ -1,5 +1,5 @@
-# 0.0.4+10
+# 0.0.5+11
 
-* Added more test cases
-* Added detailed description for the constructor
-* Updated reademe
+* Added callback method when online
+* Added callback method when offline
+* Updated readme

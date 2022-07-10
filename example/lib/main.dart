@@ -42,6 +42,11 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Center(
       child: InternetWidget(
+        offline: const Scaffold(
+          body: Center(child: Text('No Internet')),
+        ),
+        // ignore: avoid_print
+        whenOffline: () => print('No Internet'),
         online: Scaffold(
           appBar: AppBar(
             title: Text(widget.title),
@@ -66,6 +71,8 @@ class _MyHomePageState extends State<MyHomePage> {
             child: const Icon(Icons.add),
           ),
         ),
+        // ignore: avoid_print
+        whenOnline: () => print('Connected to internet'),
       ),
     );
   }

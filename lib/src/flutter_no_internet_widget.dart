@@ -5,7 +5,7 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///FlutterNoInternetWidget
 class InternetWidget extends StatelessWidget {
-  /// Use InternetWidget to  show online or ffline widgets
+  /// Use InternetWidget to  show online or offline widgets
   ///
   /// ```dart
   /// InternetWidget(
@@ -37,6 +37,8 @@ class InternetWidget extends StatelessWidget {
     required this.online,
     this.lookupUrl,
     this.loadingWidget,
+    this.whenOffline,
+    this.whenOnline,
   }) : super(key: key);
 
   ///Width of the widget
@@ -54,6 +56,12 @@ class InternetWidget extends StatelessWidget {
   ///This widget will be displayed when the
   ///cubit is busy checking the internet status
   final Widget? loadingWidget;
+
+  ///A callback method when there is internet connection.
+  final VoidCallback? whenOnline;
+
+  ///A callback method when there is no internet connection.
+  final VoidCallback? whenOffline;
 
   ///Lookup Url
   final String? lookupUrl;
@@ -103,6 +111,7 @@ class InternetWidget extends StatelessWidget {
         child: Text('Online'),
       );
     }
+    whenOnline?.call();
     return online!;
   }
 
@@ -113,6 +122,7 @@ class InternetWidget extends StatelessWidget {
         child: Text('Offline'),
       );
     }
+    whenOffline?.call();
     return offline!;
   }
 }
