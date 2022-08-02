@@ -11,10 +11,10 @@ enum InternetStatus {
   /// When the status initialized or unknown
   none,
 
-  /// When internnet is connected
+  /// When internet is connected
   connected,
 
-  /// When internnet is disconnected
+  /// When internet is disconnected
   disconnected,
 }
 

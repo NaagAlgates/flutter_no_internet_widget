@@ -11,7 +11,7 @@ We need a lot of boilerplate code to check every project's network connectivity.
 
 I also had the same question and have created this simple widget to help myself and others.
 
-## Usecase
+## Use case
 
 The package's primary purpose is to show a default offline screen and a mandatory online screen provided while initializing.
 
