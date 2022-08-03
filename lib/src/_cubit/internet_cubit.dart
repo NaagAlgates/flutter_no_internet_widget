@@ -64,7 +64,7 @@ class InternetCubit extends Cubit<InternetState> {
   ///Internet State cubit
   InternetCubit({
     Connectivity? connectivity,
-    this.urlLookup = 'example.com',
+    this.urlLookup = 'github.com',
   }) : super(const InternetState()) {
     this.connectivity = connectivity ?? Connectivity();
     _init();
@@ -142,7 +142,7 @@ class InternetCubit extends Cubit<InternetState> {
   }
 
   Future<List<InternetAddress>> _lookupAddress() async {
-    final _lookupUrl = urlLookup ?? 'example.com';
+    final _lookupUrl = urlLookup ?? 'github.com';
     final _internetAddress = await InternetAddress.lookup(
       _lookupUrl,
     );

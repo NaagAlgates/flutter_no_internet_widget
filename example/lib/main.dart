@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_no_internet_widget/flutter_no_internet_widget.dart';
+import 'package:no_internet_widget_example/second_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,12 +12,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+    return InternetWidget(
+      offline: const Center(child: Text('No Internet')),
+      // ignore: avoid_print
+      whenOffline: () => print('No Internet'),
+      // ignore: avoid_print
+      whenOnline: () => print('Connected to internet'),
+      loadingWidget: const Center(child: Text('Loading')),
+      online: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const MyHomePage(title: 'Flutter Demo Home Page'),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }
@@ -41,38 +50,39 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: InternetWidget(
-        offline: const Scaffold(
-          body: Center(child: Text('No Internet')),
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
         ),
-        // ignore: avoid_print
-        whenOffline: () => print('No Internet'),
-        online: Scaffold(
-          appBar: AppBar(
-            title: Text(widget.title),
-          ),
-          body: Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                const Text(
-                  'You have pushed the button this many times:',
-                ),
-                Text(
-                  '$_counter',
-                  style: Theme.of(context).textTheme.headline4,
-                ),
-              ],
-            ),
-          ),
-          floatingActionButton: FloatingActionButton(
-            onPressed: _incrementCounter,
-            tooltip: 'Increment',
-            child: const Icon(Icons.add),
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              const Text(
+                'You have pushed the button this many times:',
+              ),
+              Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
+              ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const SecondScreen(),
+                    ),
+                  );
+                },
+                child: const Text('Navigate'),
+              )
+            ],
           ),
         ),
-        // ignore: avoid_print
-        whenOnline: () => print('Connected to internet'),
+        floatingActionButton: FloatingActionButton(
+          onPressed: _incrementCounter,
+          tooltip: 'Increment',
+          child: const Icon(Icons.add),
+        ),
       ),
     );
   }

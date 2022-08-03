@@ -1,5 +1,5 @@
-# 0.0.5+11
+# 0.0.6+13
 
-* Added callback method when online
-* Added callback method when offline
-* Updated readme
+* Added Offline screen on top of all widgets
+* Use the widget only once for the entire app life cycle
+* Updated default lookup url to github.com
