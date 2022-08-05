@@ -68,41 +68,40 @@ class InternetWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: ResponsiveSizer(
-        builder: (context, orientation, screenType) {
-          return BlocProvider<InternetCubit>(
-            create: (context) => InternetCubit(
-              urlLookup: lookupUrl,
-            ),
-            child: Scaffold(
-              body: Builder(
-                builder: (_) {
-                  return BlocBuilder<InternetCubit, InternetState>(
-                    builder: (_, state) {
-                      if (state.cubitStatus == CubitStatus.busy) {
-                        if (loadingWidget != null) {
-                          return loadingWidget!;
-                        }
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-                      return SizedBox(
-                        width: width ?? 100.0.w,
-                        height: height ?? 100.0.h,
-                        child: state.internetStatus == InternetStatus.connected
-                            ? _getOnlineWidget()
-                            : _getOfflineWidget(),
-                      );
-                    },
-                  );
-                },
+    return ResponsiveSizer(
+      builder: (context, orientation, screenType) {
+        return BlocProvider<InternetCubit>(
+          create: (context) =>
+              InternetCubit(
+                urlLookup: lookupUrl,
               ),
+          child: Scaffold(
+            body: Builder(
+              builder: (_) {
+                return BlocBuilder<InternetCubit, InternetState>(
+                  builder: (_, state) {
+                    if (state.cubitStatus == CubitStatus.busy) {
+                      if (loadingWidget != null) {
+                        return loadingWidget!;
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return SizedBox(
+                      width: width ?? 100.0.w,
+                      height: height ?? 100.0.h,
+                      child: state.internetStatus == InternetStatus.connected
+                          ? _getOnlineWidget()
+                          : _getOfflineWidget(),
+                    );
+                  },
+                );
+              },
             ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 
