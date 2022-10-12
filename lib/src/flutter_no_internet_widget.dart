@@ -69,6 +69,7 @@ class InternetWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: ResponsiveSizer(
         builder: (context, orientation, screenType) {
           return BlocProvider<InternetCubit>(
