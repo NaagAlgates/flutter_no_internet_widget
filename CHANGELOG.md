@@ -1,5 +1,4 @@
-# 0.0.6+13
+# 0.0.7+14
 
-* Added Offline screen on top of all widgets
-* Use the widget only once for the entire app life cycle
-* Updated default lookup url to github.com
+* Fixed the debugShowCheckedModeBanner to false always
+* Updated the supporting dependencies
