@@ -104,16 +104,10 @@ class InternetCubit extends Cubit<InternetState> {
   void _subscribeConnectivityChanges() {
     connectivitySubscription =
         connectivity.onConnectivityChanged.listen((connectivityEvent) {
-      switch (connectivityEvent) {
-        case ConnectivityResult.mobile:
-        case ConnectivityResult.wifi:
-        case ConnectivityResult.bluetooth:
-        case ConnectivityResult.ethernet:
-          _checkInternet();
-          break;
-        case ConnectivityResult.none:
-          _emitNoInternet();
-          break;
+      if (connectivityEvent == ConnectivityResult.none) {
+        _emitNoInternet();
+      } else {
+        _checkInternet();
       }
     });
   }
