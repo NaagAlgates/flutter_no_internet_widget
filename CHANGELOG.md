@@ -1,4 +1,3 @@
-# 0.0.7+14
+# 0.0.8+16
 
-* Fixed the debugShowCheckedModeBanner to false always
-* Updated the supporting dependencies
+* Fixed pub.dev warning
