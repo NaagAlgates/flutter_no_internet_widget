@@ -1,3 +1,3 @@
-# 0.0.8+16
+# 0.0.9+17
 
-* Fixed pub.dev warning
+* Updated to latest dependencies
