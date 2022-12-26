@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_no_internet_widget/src/_cubit/internet_cubit.dart';
@@ -39,6 +40,7 @@ class InternetWidget extends StatelessWidget {
     this.loadingWidget,
     this.whenOffline,
     this.whenOnline,
+    this.connectivity,
   }) : super(key: key);
 
   ///Width of the widget
@@ -66,6 +68,9 @@ class InternetWidget extends StatelessWidget {
   ///Lookup Url
   final String? lookupUrl;
 
+  ///Provide your own Connectivity Object
+  final Connectivity? connectivity;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -74,6 +79,7 @@ class InternetWidget extends StatelessWidget {
         builder: (context, orientation, screenType) {
           return BlocProvider<InternetCubit>(
             create: (context) => InternetCubit(
+              connectivity: connectivity,
               urlLookup: lookupUrl,
             ),
             child: Scaffold(
