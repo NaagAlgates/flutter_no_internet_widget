@@ -6,6 +6,7 @@
 name: flutter_no_internet_widget
 
 on:
+  push:
   pull_request:
     branches: [ master ]
 
