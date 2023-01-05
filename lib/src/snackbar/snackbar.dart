@@ -18,7 +18,7 @@ class SnackbarProvider extends ISnackbar {
   ///Snackbar constructor
   SnackbarProvider({
     this.snackbar,
-    this.snackbarPosition = SnackbarPosition.bottom,
+    this.snackbarPosition,
   });
 
   ///Provide custom Snackbar
@@ -43,16 +43,22 @@ class SnackbarProvider extends ISnackbar {
   }
 
   SnackBar _defaultSnackbar() => SnackBar(
+        dismissDirection: DismissDirection.none,
         backgroundColor: Colors.red,
-        behavior: snackbarPosition == SnackbarPosition.top
+        behavior: (snackbarPosition ?? SnackbarPosition.bottom) ==
+                SnackbarPosition.top
             ? SnackBarBehavior.floating
-            : SnackBarBehavior.fixed,
-        margin: snackbarPosition == SnackbarPosition.top
+            : null,
+        margin: (snackbarPosition ?? SnackbarPosition.bottom) ==
+                SnackbarPosition.top
             ? EdgeInsets.only(
                 bottom: 85.0.h,
               )
             : null,
-        elevation: 10,
+        elevation: (snackbarPosition ?? SnackbarPosition.bottom) ==
+                SnackbarPosition.top
+            ? 10
+            : 1,
         content: const Text(
           'Offline',
           style: TextStyle(

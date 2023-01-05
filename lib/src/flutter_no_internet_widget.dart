@@ -48,7 +48,7 @@ class InternetWidget extends StatelessWidget {
     this.offlineWidgetType = OfflineWidgetType.none,
     this.snackbarProvider,
   }) : super(key: key) {
-    _snackbarProvider = snackbarProvider ?? SnackbarProvider();
+    _snackbarProvider = snackbarProvider ?? BottomSnackBar();
   }
 
   ///Width of the widget
