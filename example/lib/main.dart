@@ -13,12 +13,13 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InternetWidget(
-      offline: const Center(child: Text('No Internet')),
+      offlineWidgetType: OfflineWidgetType.snackbar,
       // ignore: avoid_print
       whenOffline: () => print('No Internet'),
       // ignore: avoid_print
       whenOnline: () => print('Connected to internet'),
       loadingWidget: const Center(child: Text('Loading')),
+      //offline: const Center(child: Text('No Internet')),
       online: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

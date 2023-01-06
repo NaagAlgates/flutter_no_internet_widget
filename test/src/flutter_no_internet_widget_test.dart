@@ -30,6 +30,20 @@ class InternetConnected extends Mock implements Connectivity {
 }
 
 void main() {
+  // group('FlutterInternetWidget', () {
+  //   testWidgets('test custom online screen', (WidgetTester tester) async {
+  //     await tester.pumpWidget(AppWidget(connectivity: InternetConnected()));
+  //     await tester.pump(const Duration(seconds: 1));
+  //     expect(
+  //       find.byWidgetPredicate(
+  //         (widget) =>
+  //
+  //widget is Text && widget.data == 'Connected to internet - test',
+  //       ),
+  //       findsOneWidget,
+  //     );
+  //   });
+  // });
   group('FlutterNoInternetWidget', () {
     test('can be instantiated', () {
       expect(
@@ -40,21 +54,24 @@ void main() {
       );
     });
 
-    testWidgets('Pump FlutterNoInternetWidget', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: InternetWidget(
-            online: Container(),
+    testWidgets(
+      'Pump FlutterNoInternetWidget',
+      (WidgetTester tester) async {
+        await tester.pumpWidget(
+          MaterialApp(
+            home: InternetWidget(
+              online: Container(),
+            ),
           ),
-        ),
-      );
+        );
 
-      expect(
-        find.byType(InternetWidget),
-        findsOneWidget,
-        reason: 'Load the widgets',
-      );
-    });
+        expect(
+          find.byType(InternetWidget),
+          findsOneWidget,
+          reason: 'Load the widgets',
+        );
+      },
+    );
 
     testWidgets('lookupUrl', (WidgetTester tester) async {
       await tester.pumpWidget(
@@ -101,12 +118,12 @@ void main() {
       );
     });
 
-    testWidgets('test default offline screen', (WidgetTester tester) async {
-      await tester.pumpWidget(const AppWidgets());
+    testWidgets('test custom offline screen', (WidgetTester tester) async {
+      await tester.pumpWidget(AppWidget(connectivity: InternetNotConnected()));
       await tester.pump(const Duration(seconds: 1));
       expect(
         find.byWidgetPredicate(
-          (widget) => widget is Text && widget.data == 'No Internet',
+          (widget) => widget is Text && widget.data == 'No Internet - test',
         ),
         findsOneWidget,
       );
@@ -114,33 +131,29 @@ void main() {
   });
 }
 
-class AppWidgets extends StatefulWidget {
-  const AppWidgets({
+class AppWidget extends StatefulWidget {
+  const AppWidget({
     Key? key,
     this.connectivity,
   }) : super(key: key);
   final Connectivity? connectivity;
 
   @override
-  State<AppWidgets> createState() => _AppWidgetsState();
+  State<AppWidget> createState() => _AppWidgetState();
 }
 
-class _AppWidgetsState extends State<AppWidgets> {
+class _AppWidgetState extends State<AppWidget> {
   @override
   Widget build(BuildContext context) {
     return InternetWidget(
       connectivity: widget.connectivity ?? InternetNotConnected(),
-      offline: const Center(child: Text('No Internet')),
-      // ignore: avoid_print
-      whenOffline: () => print('No Internet'),
-      // ignore: avoid_print
-      whenOnline: () => print('Connected to internet'),
+      offline: const Center(child: Text('No Internet - test')),
       online: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: const Center(child: Text('Connected to internet')),
+        home: const Center(child: Text('Connected to internet - test')),
       ),
     );
   }
