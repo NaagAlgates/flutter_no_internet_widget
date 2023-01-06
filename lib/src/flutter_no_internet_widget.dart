@@ -6,8 +6,6 @@ import 'package:flutter_no_internet_widget/src/enum/offline_widget_types.dart';
 import 'package:flutter_no_internet_widget/src/snackbar/snackbar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
 ///FlutterNoInternetWidget
 class InternetWidget extends StatelessWidget {
   /// Use InternetWidget to  show online or offline widgets
@@ -99,7 +97,6 @@ class InternetWidget extends StatelessWidget {
               urlLookup: lookupUrl,
             ),
             child: Scaffold(
-              key: _scaffoldKey,
               body: Builder(
                 builder: (_) {
                   return BlocBuilder<InternetCubit, InternetState>(
