@@ -37,7 +37,8 @@ void main() {
   //     expect(
   //       find.byWidgetPredicate(
   //         (widget) =>
-  //             widget is Text && widget.data == 'Connected to internet - test',
+  //
+  //widget is Text && widget.data == 'Connected to internet - test',
   //       ),
   //       findsOneWidget,
   //     );
