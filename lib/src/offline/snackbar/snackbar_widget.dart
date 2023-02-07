@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_no_internet_widget/src/snackbar/snackbar_position.dart';
+import 'package:flutter_no_internet_widget/src/offline/snackbar/snackbar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 /// SnackBar Interface

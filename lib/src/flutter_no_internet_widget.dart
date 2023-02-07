@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_no_internet_widget/src/_cubit/internet_cubit.dart';
 import 'package:flutter_no_internet_widget/src/enum/offline_widget_types.dart';
-import 'package:flutter_no_internet_widget/src/snackbar/snackbar.dart';
+import 'package:flutter_no_internet_widget/src/offline/snackbar/snackbar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///FlutterNoInternetWidget
