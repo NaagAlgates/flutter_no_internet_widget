@@ -13,7 +13,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InternetWidget(
-      offlineWidgetType: OfflineWidgetType.snackbar,
+      offlineWidgetType: OfflineWidgetType.fullscreen,
       // ignore: avoid_print
       whenOffline: () => print('No Internet'),
       // ignore: avoid_print
@@ -64,7 +64,7 @@ class _MyHomePageState extends State<MyHomePage> {
               ),
               Text(
                 '$_counter',
-                style: Theme.of(context).textTheme.headline4,
+                style: Theme.of(context).textTheme.headlineLarge,
               ),
               ElevatedButton(
                 onPressed: () {

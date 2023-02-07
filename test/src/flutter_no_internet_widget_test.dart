@@ -95,14 +95,14 @@ void main() {
     });
 
     testWidgets('loadingWidget', (WidgetTester tester) async {
-      const _loadingWidget = Center(
+      const loadingWidget = Center(
         child: CircularProgressIndicator(),
       );
       await tester.pumpWidget(
         MaterialApp(
           home: InternetWidget(
             online: Container(),
-            loadingWidget: _loadingWidget,
+            loadingWidget: loadingWidget,
           ),
         ),
       );
@@ -112,7 +112,7 @@ void main() {
           (widget) =>
               widget is InternetWidget &&
               widget.loadingWidget != null &&
-              widget.loadingWidget == _loadingWidget,
+              widget.loadingWidget == loadingWidget,
         ),
         findsOneWidget,
       );

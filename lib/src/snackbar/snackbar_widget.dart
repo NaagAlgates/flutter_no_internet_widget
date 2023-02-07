@@ -36,10 +36,10 @@ class SnackbarProvider extends ISnackbar {
 
   ///Display Default Snackbar widget
   void displaySnackbar(BuildContext context) {
-    final _snackBar = snackbar ?? _defaultSnackbar();
+    final localSnackbar = snackbar ?? _defaultSnackbar();
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
-      ..showSnackBar(_snackBar);
+      ..showSnackBar(localSnackbar);
   }
 
   SnackBar _defaultSnackbar() => SnackBar(

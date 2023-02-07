@@ -109,12 +109,11 @@ class InternetWidget extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
-                      return SizedBox(
-                        width: width ?? 100.0.w,
-                        height: height ?? 100.0.h,
-                        child: state.internetStatus == InternetStatus.connected
-                            ? _getOnlineWidget(context)
-                            : _getOfflineWidget(context),
+                      return Stack(
+                        children: [
+                          _getOnlineWidget(context),
+                          _getOfflineWidget(context, state.internetStatus),
+                        ],
                       );
                     },
                   );
@@ -141,7 +140,8 @@ class InternetWidget extends StatelessWidget {
     return online!;
   }
 
-  Widget? _getOfflineWidget(BuildContext context) {
+  Widget _getOfflineWidget(BuildContext context, InternetStatus status) {
+    if (status == InternetStatus.connected) return Container();
     whenOffline?.call();
     if (offlineWidgetType == OfflineWidgetType.snackbar) {
       _showSnackbarWidget(context);
@@ -162,9 +162,14 @@ class InternetWidget extends StatelessWidget {
         (_) => _snackbarProvider?.displaySnackbar(context),
       );
 
-  Widget _displayDefaultOfflineWidget() => const Center(
-        key: ValueKey('default-offline-widget'),
-        child: Text('Offline'),
+  Widget _displayDefaultOfflineWidget() => Container(
+        color: Colors.white,
+        height: 100.0.h,
+        width: 100.0.w,
+        child: const Center(
+          key: ValueKey('default-offline-widget'),
+          child: Text('Offline'),
+        ),
       );
 
   Widget _displayCustomOfflineWidget() => offline!;
