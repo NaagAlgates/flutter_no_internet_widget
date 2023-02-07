@@ -1,9 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_no_internet_widget/flutter_no_internet_widget.dart';
 import 'package:flutter_no_internet_widget/src/_cubit/internet_cubit.dart';
-import 'package:flutter_no_internet_widget/src/enum/offline_widget_types.dart';
-import 'package:flutter_no_internet_widget/src/offline/snackbar/snackbar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///FlutterNoInternetWidget
@@ -32,8 +31,8 @@ class InternetWidget extends StatelessWidget {
   ///  online: Container(),
   /// ),
   /// ```
-  InternetWidget({
-    Key? key,
+  const InternetWidget({
+    super.key,
     this.height,
     this.width,
     this.offline,
@@ -43,11 +42,8 @@ class InternetWidget extends StatelessWidget {
     this.whenOffline,
     this.whenOnline,
     this.connectivity,
-    this.offlineWidgetType = OfflineWidgetType.none,
-    this.snackbarProvider,
-  }) : super(key: key) {
-    _snackbarProvider = snackbarProvider ?? BottomSnackBar();
-  }
+    this.offlineWidgetType,
+  });
 
   ///Width of the widget
   final double? width;
@@ -78,12 +74,7 @@ class InternetWidget extends StatelessWidget {
   final Connectivity? connectivity;
 
   ///Widget type that is displayed when there is no internet
-  final OfflineWidgetType offlineWidgetType;
-
-  ///Show Custom Snackbar
-  final SnackbarProvider? snackbarProvider;
-
-  late final SnackbarProvider? _snackbarProvider;
+  final OfflineWidgetType? offlineWidgetType;
 
   @override
   Widget build(BuildContext context) {
@@ -127,8 +118,8 @@ class InternetWidget extends StatelessWidget {
   }
 
   Widget _getOnlineWidget(BuildContext context) {
-    if (offlineWidgetType == OfflineWidgetType.snackbar) {
-      _snackbarProvider?.hideSnackbar(context);
+    if (offlineWidgetType is SnackbarWidget) {
+      (offlineWidgetType as SnackbarWidget?)?.hideSnackbar(context);
     }
     if (online == null) {
       return const Center(
@@ -143,11 +134,14 @@ class InternetWidget extends StatelessWidget {
   Widget _getOfflineWidget(BuildContext context, InternetStatus status) {
     if (status == InternetStatus.connected) return Container();
     whenOffline?.call();
-    if (offlineWidgetType == OfflineWidgetType.snackbar) {
+    if (offlineWidgetType is SnackbarWidget) {
       _showSnackbarWidget(context);
-      return _displayOfflineWidget(context);
-    } else if (offlineWidgetType == OfflineWidgetType.fullscreen) {
-      return _displayOfflineWidget(context);
+      return _onlineWidget();
+    } else if (offlineWidgetType is FullScreenWidget) {
+      if ((offlineWidgetType as FullScreenWidget?)?.child != null) {
+        return (offlineWidgetType as FullScreenWidget?)?.child ?? Container();
+      }
+      return _displayDefaultOfflineWidget();
     } else {
       if (offline == null) {
         return _displayDefaultOfflineWidget();
@@ -157,10 +151,13 @@ class InternetWidget extends StatelessWidget {
     }
   }
 
-  void _showSnackbarWidget(BuildContext context) =>
+  void _showSnackbarWidget(BuildContext context) {
+    if (offlineWidgetType is SnackbarWidget) {
       WidgetsBinding.instance.addPostFrameCallback(
-        (_) => _snackbarProvider?.displaySnackbar(context),
+        (_) => (offlineWidgetType as SnackbarWidget?)?.displaySnackbar(context),
       );
+    }
+  }
 
   Widget _displayDefaultOfflineWidget() => Container(
         color: Colors.white,
@@ -174,19 +171,19 @@ class InternetWidget extends StatelessWidget {
 
   Widget _displayCustomOfflineWidget() => offline!;
 
-  Widget _displayOfflineWidget(BuildContext context) {
-    if (offline == null) {
-      if (offlineWidgetType == OfflineWidgetType.snackbar) {
-        return _onlineWidget();
-      } else if (offlineWidgetType == OfflineWidgetType.fullscreen) {
-        return _displayDefaultOfflineWidget();
-      } else {
-        return Container();
-      }
-    } else {
-      return _displayCustomOfflineWidget();
-    }
-  }
+  // Widget _displayOfflineWidget(BuildContext context) {
+  //   if (offline == null) {
+  //     if (offlineWidgetType is SnackbarWidget) {
+  //       return _onlineWidget();
+  //     } else if (offlineWidgetType is FullScreenWidget) {
+  //       return _displayDefaultOfflineWidget();
+  //     } else {
+  //       return Container();
+  //     }
+  //   } else {
+  //     return _displayCustomOfflineWidget();
+  //   }
+  // }
 
   Widget _onlineWidget() => online!;
 }

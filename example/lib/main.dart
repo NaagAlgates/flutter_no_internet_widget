@@ -13,7 +13,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InternetWidget(
-      offlineWidgetType: OfflineWidgetType.fullscreen,
+      offlineWidgetType: FullScreenWidget(
+        child: const ColoredBox(
+          color: Colors.orange,
+          child: Center(
+            child: Text('Offline from App'),
+          ),
+        ),
+      ),
       // ignore: avoid_print
       whenOffline: () => print('No Internet'),
       // ignore: avoid_print

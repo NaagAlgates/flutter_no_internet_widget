@@ -1,2 +1,2 @@
 export 'snackbar_position.dart';
-export 'snackbar_widget.dart';
+export 'snackbar_provider.dart';

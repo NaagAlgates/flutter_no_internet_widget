@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_no_internet_widget/src/offline/snackbar/snackbar.dart';
+import 'package:flutter_no_internet_widget/src/offline/offline_widget_type.dart';
+import 'package:flutter_no_internet_widget/src/offline/snackbar/snackbar_position.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 /// SnackBar Interface
@@ -11,21 +12,20 @@ abstract class ISnackbar {
   void hideSnackbar(BuildContext context);
 }
 
-@protected
-
 /// If the Snackbar enum is selected, please enter all the values for this class
-class SnackbarProvider extends ISnackbar {
+class SnackbarWidget extends OfflineWidgetType implements ISnackbar {
   ///Snackbar constructor
-  SnackbarProvider({
+  SnackbarWidget({
     this.snackbar,
     this.snackbarPosition,
-  });
+  }) : super();
 
   ///Provide custom Snackbar
   final SnackBar? snackbar;
 
   ///Provide the position of the Snackbar if the default snackbar is consumed
   final SnackbarPosition? snackbarPosition;
+
   @override
 
   ///Hide Default Snackbar widget
@@ -74,7 +74,7 @@ class SnackbarProvider extends ISnackbar {
 }
 
 /// Display the default snackbar at top
-class TopSnackBar extends SnackbarProvider {
+class TopSnackBar extends SnackbarWidget {
   ///Constructor for displaying the default snackbar at top
   TopSnackBar([SnackBar? snackbar])
       : super(
@@ -84,7 +84,7 @@ class TopSnackBar extends SnackbarProvider {
 }
 
 /// Display the default snackbar at bottom
-class BottomSnackBar extends SnackbarProvider {
+class BottomSnackBar extends SnackbarWidget {
   ///Constructor for displaying the default snackbar at bottom
   BottomSnackBar([SnackBar? snackbar])
       : super(

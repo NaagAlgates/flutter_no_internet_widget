@@ -13,7 +13,7 @@ void main() {
         (WidgetTester tester) async {
           final pumpWidget = MaterialApp(
             home: InternetWidget(
-              offlineWidgetType: OfflineWidgetType.snackbar,
+              offlineWidgetType: SnackbarWidget(),
               connectivity: InternetConnected(),
               online: Container(),
             ),
@@ -36,7 +36,7 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
+            offlineWidgetType: SnackbarWidget(),
             connectivity: InternetNotConnected(),
             online: Container(),
           ),
@@ -67,8 +67,7 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
-            snackbarProvider: TopSnackBar(
+            offlineWidgetType: TopSnackBar(
               const SnackBar(
                 duration: Duration(days: 10),
                 content: Text('Custom Offline'),
@@ -100,8 +99,7 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
-            snackbarProvider: SnackbarProvider(
+            offlineWidgetType: SnackbarWidget(
               snackbarPosition: SnackbarPosition.top,
             ),
             connectivity: InternetNotConnected(),
@@ -135,8 +133,7 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
-            snackbarProvider: SnackbarProvider(
+            offlineWidgetType: SnackbarWidget(
               snackbar: const SnackBar(
                 content: Text('Custom Offline'),
                 key: ValueKey(
