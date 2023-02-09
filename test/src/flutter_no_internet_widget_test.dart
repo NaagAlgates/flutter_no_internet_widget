@@ -133,9 +133,9 @@ void main() {
 
 class AppWidget extends StatefulWidget {
   const AppWidget({
-    super.key,
+    Key? key,
     this.connectivity,
-  });
+  }) : super(key: key);
   final Connectivity? connectivity;
 
   @override

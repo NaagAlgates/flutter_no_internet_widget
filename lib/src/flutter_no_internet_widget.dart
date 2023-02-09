@@ -32,7 +32,7 @@ class InternetWidget extends StatelessWidget {
   /// ),
   /// ```
   const InternetWidget({
-    super.key,
+    Key? key,
     this.height,
     this.width,
     required this.online,
@@ -42,7 +42,7 @@ class InternetWidget extends StatelessWidget {
     this.whenOnline,
     this.connectivity,
     this.offline,
-  });
+  }) : super(key: key);
 
   ///Width of the widget
   final double? width;
