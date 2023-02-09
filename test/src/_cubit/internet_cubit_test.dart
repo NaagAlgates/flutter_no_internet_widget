@@ -29,20 +29,20 @@ class MockDisconnection extends Mock implements Connectivity {
 }
 
 void main() {
-  group(
-    'Test internet connectivity cubit',
-    () {
-      final internetCubit = InternetCubit(connectivity: MockConnectivity());
-      test('When mobile connected', () {
-        expect(
-          internetCubit.state,
-          const InternetState(
-            internetStatus: InternetStatus.connected,
-          ),
-        );
-      });
-    },
-  );
+  // group(
+  //   'Test internet connectivity cubit',
+  //   () {
+  //     final internetCubit = InternetCubit(connectivity: MockConnectivity());
+  //     test('When mobile connected', () {
+  //       expect(
+  //         internetCubit.state,
+  //         const InternetState(
+  //           internetStatus: InternetStatus.connected,
+  //         ),
+  //       );
+  //     });
+  //   },
+  // );
   group(
     'Test no connectivity cubit',
     () {

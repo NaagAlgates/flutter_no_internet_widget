@@ -1,3 +1,5 @@
-# 0.0.9+17
+# 1.0.0+18-dev.1
 
-* Updated to latest dependencies
+* Added Snackbar support
+* Added BottomSheet support
+* Added Overlay on fullscreen

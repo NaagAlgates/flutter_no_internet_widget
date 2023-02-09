@@ -147,7 +147,9 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return InternetWidget(
       connectivity: widget.connectivity ?? InternetNotConnected(),
-      offline: const Center(child: Text('No Internet - test')),
+      offline: const FullScreenWidget(
+        child: Center(child: Text('No Internet - test')),
+      ),
       online: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

@@ -3,19 +3,10 @@ import 'package:flutter_no_internet_widget/src/offline/offline_widget_type.dart'
 import 'package:flutter_no_internet_widget/src/offline/snackbar/snackbar_position.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-/// SnackBar Interface
-abstract class ISnackbar {
-  ///Display Default Snackbar widget
-  void displaySnackbar(BuildContext context);
-
-  ///Hide Default Snackbar widget
-  void hideSnackbar(BuildContext context);
-}
-
 /// If the Snackbar enum is selected, please enter all the values for this class
-class SnackbarWidget extends OfflineWidgetType implements ISnackbar {
+class SnackbarWidget extends OfflineWidgetType implements IWidgetAction {
   ///Snackbar constructor
-  SnackbarWidget({
+  const SnackbarWidget({
     this.snackbar,
     this.snackbarPosition,
   }) : super();
@@ -29,13 +20,13 @@ class SnackbarWidget extends OfflineWidgetType implements ISnackbar {
   @override
 
   ///Hide Default Snackbar widget
-  void hideSnackbar(BuildContext context) =>
+  void hide(BuildContext context) =>
       ScaffoldMessenger.of(context).hideCurrentSnackBar();
 
   @override
 
   ///Display Default Snackbar widget
-  void displaySnackbar(BuildContext context) {
+  void display(BuildContext context) {
     final localSnackbar = snackbar ?? _defaultSnackbar();
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
@@ -76,7 +67,7 @@ class SnackbarWidget extends OfflineWidgetType implements ISnackbar {
 /// Display the default snackbar at top
 class TopSnackBar extends SnackbarWidget {
   ///Constructor for displaying the default snackbar at top
-  TopSnackBar([SnackBar? snackbar])
+  const TopSnackBar([SnackBar? snackbar])
       : super(
           snackbarPosition: SnackbarPosition.top,
           snackbar: snackbar,
@@ -86,7 +77,7 @@ class TopSnackBar extends SnackbarWidget {
 /// Display the default snackbar at bottom
 class BottomSnackBar extends SnackbarWidget {
   ///Constructor for displaying the default snackbar at bottom
-  BottomSnackBar([SnackBar? snackbar])
+  const BottomSnackBar([SnackBar? snackbar])
       : super(
           snackbarPosition: SnackbarPosition.bottom,
           snackbar: snackbar,
