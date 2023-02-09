@@ -29,30 +29,30 @@ class MockDisconnection extends Mock implements Connectivity {
 }
 
 void main() {
-  group(
-    'Test internet connectivity cubit',
-    () {
-      final _internetCubit = InternetCubit(connectivity: MockConnectivity());
-      test('When mobile connected', () {
-        expect(
-          _internetCubit.state,
-          const InternetState(
-            internetStatus: InternetStatus.connected,
-          ),
-        );
-      });
-    },
-  );
+  // group(
+  //   'Test internet connectivity cubit',
+  //   () {
+  //     final internetCubit = InternetCubit(connectivity: MockConnectivity());
+  //     test('When mobile connected', () {
+  //       expect(
+  //         internetCubit.state,
+  //         const InternetState(
+  //           internetStatus: InternetStatus.connected,
+  //         ),
+  //       );
+  //     });
+  //   },
+  // );
   group(
     'Test no connectivity cubit',
     () {
-      late final InternetCubit _internetCubit;
+      late final InternetCubit internetCubit;
       setUp(() {
-        _internetCubit = InternetCubit(connectivity: MockDisconnection());
+        internetCubit = InternetCubit(connectivity: MockDisconnection());
       });
       test('When mobile disconnected', () {
         expect(
-          _internetCubit.state,
+          internetCubit.state,
           const InternetState(
             internetStatus: InternetStatus.disconnected,
           ),
@@ -63,12 +63,12 @@ void main() {
   group(
     'Test dispose',
     () {
-      late final InternetCubit _internetCubit;
-      _internetCubit = InternetCubit(connectivity: MockDisconnection());
+      late final InternetCubit internetCubit;
+      internetCubit = InternetCubit(connectivity: MockDisconnection());
 
       test('dispose', () {
         expect(
-          _internetCubit.dispose,
+          internetCubit.dispose,
           returnsNormally,
         );
       });

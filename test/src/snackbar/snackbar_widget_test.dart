@@ -13,7 +13,7 @@ void main() {
         (WidgetTester tester) async {
           final pumpWidget = MaterialApp(
             home: InternetWidget(
-              offlineWidgetType: OfflineWidgetType.snackbar,
+              offline: const SnackbarWidget(),
               connectivity: InternetConnected(),
               online: Container(),
             ),
@@ -36,7 +36,7 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
+            offline: const SnackbarWidget(),
             connectivity: InternetNotConnected(),
             online: Container(),
           ),
@@ -67,9 +67,8 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
-            snackbarProvider: TopSnackBar(
-              const SnackBar(
+            offline: const TopSnackBar(
+              SnackBar(
                 duration: Duration(days: 10),
                 content: Text('Custom Offline'),
                 key: ValueKey(
@@ -100,8 +99,7 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
-            snackbarProvider: SnackbarProvider(
+            offline: const SnackbarWidget(
               snackbarPosition: SnackbarPosition.top,
             ),
             connectivity: InternetNotConnected(),
@@ -135,9 +133,8 @@ void main() {
       (WidgetTester tester) async {
         final pumpWidget = MaterialApp(
           home: InternetWidget(
-            offlineWidgetType: OfflineWidgetType.snackbar,
-            snackbarProvider: SnackbarProvider(
-              snackbar: const SnackBar(
+            offline: const SnackbarWidget(
+              snackbar: SnackBar(
                 content: Text('Custom Offline'),
                 key: ValueKey(
                   'custom-snackbar',

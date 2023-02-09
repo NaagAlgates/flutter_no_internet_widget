@@ -1,9 +1,8 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_no_internet_widget/flutter_no_internet_widget.dart';
 import 'package:flutter_no_internet_widget/src/_cubit/internet_cubit.dart';
-import 'package:flutter_no_internet_widget/src/enum/offline_widget_types.dart';
-import 'package:flutter_no_internet_widget/src/snackbar/snackbar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///FlutterNoInternetWidget
@@ -32,31 +31,24 @@ class InternetWidget extends StatelessWidget {
   ///  online: Container(),
   /// ),
   /// ```
-  InternetWidget({
-    Key? key,
+  const InternetWidget({
+    super.key,
     this.height,
     this.width,
-    this.offline,
     required this.online,
     this.lookupUrl,
     this.loadingWidget,
     this.whenOffline,
     this.whenOnline,
     this.connectivity,
-    this.offlineWidgetType = OfflineWidgetType.none,
-    this.snackbarProvider,
-  }) : super(key: key) {
-    _snackbarProvider = snackbarProvider ?? BottomSnackBar();
-  }
+    this.offline,
+  });
 
   ///Width of the widget
   final double? width;
 
   ///Height of the widget
   final double? height;
-
-  ///Widget to be displayed when there is no internet connection
-  final Widget? offline;
 
   ///Widget to be displayed when there is internet connection
   final Widget? online;
@@ -77,13 +69,8 @@ class InternetWidget extends StatelessWidget {
   ///Provide your own Connectivity Object
   final Connectivity? connectivity;
 
-  ///Widget type that is displayed when there is no internet
-  final OfflineWidgetType offlineWidgetType;
-
-  ///Show Custom Snackbar
-  final SnackbarProvider? snackbarProvider;
-
-  late final SnackbarProvider? _snackbarProvider;
+  ///Widget to be displayed when there is no internet connection
+  final OfflineWidgetType? offline;
 
   @override
   Widget build(BuildContext context) {
@@ -109,12 +96,11 @@ class InternetWidget extends StatelessWidget {
                           child: CircularProgressIndicator(),
                         );
                       }
-                      return SizedBox(
-                        width: width ?? 100.0.w,
-                        height: height ?? 100.0.h,
-                        child: state.internetStatus == InternetStatus.connected
-                            ? _getOnlineWidget(context)
-                            : _getOfflineWidget(context),
+                      return Stack(
+                        children: [
+                          _getOnlineWidget(context),
+                          _getOfflineWidget(context, state.internetStatus),
+                        ],
                       );
                     },
                   );
@@ -128,8 +114,12 @@ class InternetWidget extends StatelessWidget {
   }
 
   Widget _getOnlineWidget(BuildContext context) {
-    if (offlineWidgetType == OfflineWidgetType.snackbar) {
-      _snackbarProvider?.hideSnackbar(context);
+    if (offline is SnackbarWidget) {
+      (offline as SnackbarWidget?)?.hide(context);
+    } else if (offline is BottomSheetWidget) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => (offline as BottomSheetWidget?)?.hide(context),
+      );
     }
     if (online == null) {
       return const Center(
@@ -141,47 +131,53 @@ class InternetWidget extends StatelessWidget {
     return online!;
   }
 
-  Widget? _getOfflineWidget(BuildContext context) {
+  Widget _getOfflineWidget(BuildContext context, InternetStatus status) {
+    if (status == InternetStatus.connected) return Container();
     whenOffline?.call();
-    if (offlineWidgetType == OfflineWidgetType.snackbar) {
+    if (offline is SnackbarWidget) {
       _showSnackbarWidget(context);
-      return _displayOfflineWidget(context);
-    } else if (offlineWidgetType == OfflineWidgetType.fullscreen) {
-      return _displayOfflineWidget(context);
-    } else {
-      if (offline == null) {
-        return _displayDefaultOfflineWidget();
-      } else {
-        return _displayCustomOfflineWidget();
+      return _onlineWidget();
+    } else if (offline is FullScreenWidget) {
+      if ((offline as FullScreenWidget?)?.child != null) {
+        return (offline as FullScreenWidget?)?.child ?? Container();
       }
+      return _displayDefaultOfflineWidget();
+    } else if (offline is BottomSheetWidget) {
+      if ((offline as BottomSheetWidget?)?.child != null) {
+        return (offline as BottomSheetWidget?)?.child ?? Container();
+      }
+      _showBottomSheetWidget(context);
+      return _onlineWidget();
+    } else {
+      return _onlineWidget();
     }
   }
 
-  void _showSnackbarWidget(BuildContext context) =>
+  void _showSnackbarWidget(BuildContext context) {
+    if (offline is SnackbarWidget) {
       WidgetsBinding.instance.addPostFrameCallback(
-        (_) => _snackbarProvider?.displaySnackbar(context),
+        (_) => (offline as SnackbarWidget?)?.display(context),
       );
-
-  Widget _displayDefaultOfflineWidget() => const Center(
-        key: ValueKey('default-offline-widget'),
-        child: Text('Offline'),
-      );
-
-  Widget _displayCustomOfflineWidget() => offline!;
-
-  Widget _displayOfflineWidget(BuildContext context) {
-    if (offline == null) {
-      if (offlineWidgetType == OfflineWidgetType.snackbar) {
-        return _onlineWidget();
-      } else if (offlineWidgetType == OfflineWidgetType.fullscreen) {
-        return _displayDefaultOfflineWidget();
-      } else {
-        return Container();
-      }
-    } else {
-      return _displayCustomOfflineWidget();
     }
   }
+
+  void _showBottomSheetWidget(BuildContext context) {
+    if (offline is BottomSheetWidget) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) => (offline as BottomSheetWidget?)?.display(context),
+      );
+    }
+  }
+
+  Widget _displayDefaultOfflineWidget() => Container(
+        color: Colors.white,
+        height: 100.0.h,
+        width: 100.0.w,
+        child: const Center(
+          key: ValueKey('default-offline-widget'),
+          child: Text('Offline'),
+        ),
+      );
 
   Widget _onlineWidget() => online!;
 }

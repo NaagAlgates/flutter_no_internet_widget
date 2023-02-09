@@ -43,7 +43,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InternetWidget(
-      offline: const Center(child: Text('No Internet')),
+      offline: const FullScreenWidget(),
       // ignore: avoid_print
       whenOffline: () => print('No Internet'),
       // ignore: avoid_print

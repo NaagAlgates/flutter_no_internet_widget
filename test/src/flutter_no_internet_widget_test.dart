@@ -95,14 +95,14 @@ void main() {
     });
 
     testWidgets('loadingWidget', (WidgetTester tester) async {
-      const _loadingWidget = Center(
+      const loadingWidget = Center(
         child: CircularProgressIndicator(),
       );
       await tester.pumpWidget(
         MaterialApp(
           home: InternetWidget(
             online: Container(),
-            loadingWidget: _loadingWidget,
+            loadingWidget: loadingWidget,
           ),
         ),
       );
@@ -112,7 +112,7 @@ void main() {
           (widget) =>
               widget is InternetWidget &&
               widget.loadingWidget != null &&
-              widget.loadingWidget == _loadingWidget,
+              widget.loadingWidget == loadingWidget,
         ),
         findsOneWidget,
       );
@@ -133,9 +133,9 @@ void main() {
 
 class AppWidget extends StatefulWidget {
   const AppWidget({
-    Key? key,
+    super.key,
     this.connectivity,
-  }) : super(key: key);
+  });
   final Connectivity? connectivity;
 
   @override
@@ -147,7 +147,9 @@ class _AppWidgetState extends State<AppWidget> {
   Widget build(BuildContext context) {
     return InternetWidget(
       connectivity: widget.connectivity ?? InternetNotConnected(),
-      offline: const Center(child: Text('No Internet - test')),
+      offline: const FullScreenWidget(
+        child: Center(child: Text('No Internet - test')),
+      ),
       online: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(

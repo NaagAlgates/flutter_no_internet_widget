@@ -79,7 +79,7 @@ class InternetCubit extends Cubit<InternetState> {
   late final Connectivity connectivity;
 
   ///  Connectivity StreamSubscription
-  late final StreamSubscription connectivitySubscription;
+  late final StreamSubscription<ConnectivityResult> connectivitySubscription;
 
   ///URL lookup for internet
   final String? urlLookup;
@@ -123,9 +123,9 @@ class InternetCubit extends Cubit<InternetState> {
         _emitConnected();
         return;
       }
-      final _result = await _lookupAddress();
-      final _isOnline = _checkOnlineStatus(_result);
-      if (_isOnline) {
+      final result = await _lookupAddress();
+      final isOnline = _checkOnlineStatus(result);
+      if (isOnline) {
         _emitConnected();
       } else {
         _emitNoInternet();
@@ -136,11 +136,11 @@ class InternetCubit extends Cubit<InternetState> {
   }
 
   Future<List<InternetAddress>> _lookupAddress() async {
-    final _lookupUrl = urlLookup ?? 'github.com';
-    final _internetAddress = await InternetAddress.lookup(
-      _lookupUrl,
+    final lookupUrl = urlLookup ?? 'github.com';
+    final internetAddress = await InternetAddress.lookup(
+      lookupUrl,
     );
-    return _internetAddress;
+    return internetAddress;
   }
 
   bool _checkOnlineStatus(List<InternetAddress> addressList) =>
