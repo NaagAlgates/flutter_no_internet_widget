@@ -42,6 +42,7 @@ class InternetWidget extends StatelessWidget {
     this.whenOnline,
     this.connectivity,
     this.offline,
+    this.resizeToAvoidBottomInset,
   }) : super(key: key);
 
   ///Width of the widget
@@ -72,6 +73,9 @@ class InternetWidget extends StatelessWidget {
   ///Widget to be displayed when there is no internet connection
   final OfflineWidgetType? offline;
 
+  ///Added resizeToAvoidBottomInset
+  final bool? resizeToAvoidBottomInset;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -84,6 +88,7 @@ class InternetWidget extends StatelessWidget {
               urlLookup: lookupUrl,
             ),
             child: Scaffold(
+              resizeToAvoidBottomInset: resizeToAvoidBottomInset ?? true,
               body: Builder(
                 builder: (_) {
                   return BlocBuilder<InternetCubit, InternetState>(
